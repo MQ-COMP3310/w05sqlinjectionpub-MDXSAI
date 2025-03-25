@@ -60,18 +60,18 @@ public class SQLiteConnectionManager {
      * @param fileName the database file name
      */
     public void createNewDatabase(String fileName) {
-
-        try (Connection conn = DriverManager.getConnection(databaseURL)) {
-            if (conn != null) {
-                DatabaseMetaData meta = conn.getMetaData();
-                System.out.println("The driver name is " + meta.getDriverName());
-                System.out.println("A new database has been created.");
-
+       
+            try (Connection conn = DriverManager.getConnection(this.databaseURL)) {
+                if (conn != null) {
+                    DatabaseMetaData meta = conn.getMetaData();
+                    logger.info("The driver name is " + meta.getDriverName());
+                    logger.info("A new database has been created.");
+                }
+            } catch (SQLException e) {
+                logger.log(Level.WARNING, "Failed to create new database", e);
             }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
         }
-    }
+        
 
     /**
      * Check that the file has been cr3eated

@@ -38,15 +38,15 @@ public class App {
 
         wordleDatabaseConnection.createNewDatabase("words.db");
         if (wordleDatabaseConnection.checkIfConnectionDefined()) {
-            System.out.println("Wordle created and connected.");
+            logger.info("Wordle created and connected.");
         } else {
-            System.out.println("Not able to connect. Sorry!");
+            logger.severe("Not able to connect. Sorry!");
             return;
         }
         if (wordleDatabaseConnection.createWordleTables()) {
-            System.out.println("Wordle structures in place.");
+            logger.info("Wordle structures in place.");
         } else {
-            System.out.println("Not able to launch. Sorry!");
+            logger.severe("Not able to launch. Sorry!");
             return;
         }
 
@@ -56,17 +56,17 @@ public class App {
             String line;
             int i = 1;
             while ((line = br.readLine()) != null) {
-                System.out.println(line);
+                logger.fine(line);
                 wordleDatabaseConnection.addValidWord(i, line);
                 i++;
             }
 
         } catch (IOException e) {
-            System.out.println("Not able to load . Sorry!");
-            System.out.println(e.getMessage());
+            logger.severe("Not able to load. Sorry!");
+            logger.log(Level.SEVERE, "Exception while reading data.txt", e);
             return;
         }
-
+        
         // let's get them to enter a word
 
         try (Scanner scanner = new Scanner(System.in)) {
