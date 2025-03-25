@@ -127,7 +127,7 @@ public class SQLiteConnectionManager {
      */
     public void addValidWord(int id, String word) {
         if (!word.matches("^[a-z]{4}$")) {
-            logger.warning("Rejected invalid word: " + word);
+            logger.severe("Ignored invalid word from data.txt: " + word);
             return;
         }
     
